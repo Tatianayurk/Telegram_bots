@@ -6,7 +6,7 @@ from json_commands import *
 import db
 
 
-token = '8428189477:AAGbLM-CXunZrAMdE71ckM0A1tTsIzFkLks'
+token = '8384761621:AAFaUDXOre24YiLzspjce6GuwRLfK-xjkXi8'
 
 bot = telebot.TeleBot(token)
 Users = read_json('users.json') #Список с пользователями
