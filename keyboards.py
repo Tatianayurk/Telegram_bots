@@ -22,5 +22,3 @@ def services_keyboard(buttons):
         keyboard.add(InlineKeyboardButton(element[1],callback_data=f'service:{element[0]}'))
     keyboard.add(InlineKeyboardButton('Назад',callback_data=''))
     return keyboard
-
-def 
