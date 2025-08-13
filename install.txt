@@ -3,3 +3,10 @@
 сменить интерпретатор
 Ввести команду pip install -r requirements.txt.
 Создать файл token_api.txt и заполнить его вашем токеном
+Создать файл database_info.py
+Добавить переменные
+host='127.0.0.1',
+port='3306',#Который указывали при установке
+user='root',
+password='root',#Пароль который указывали при установке
+database = 'telegram_bot' #Название которое сделали в sql workbench
