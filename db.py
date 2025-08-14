@@ -12,7 +12,7 @@ db = mysql.connector.connect(
 db.autocommit = True #Свойство автоотправки запросов insert
 cursor = db.cursor() #С помощью этой переменной будем делать запросы к бд
 
-#Получить 1 запись по id
+#Получить записи по id
 def get_one_by_id(table:str,id:int):
     query = f'''SELECT * FROM {table} WHERE id = {id}'''
     cursor.execute(query)
@@ -23,10 +23,18 @@ def get_one_by_id(table:str,id:int):
 def save_one(table:str,record:str,values:str):
     query = f'''INSERT INTO {table}({record}) VALUES({values})'''
     cursor.execute(query)
+
 #Удалить 1 запись по id
 def delete_one_by_id(table:str,id:int):
     query = f'''DELETE FROM {table} WHERE id = {id}'''
     cursor.execute(query)
+
+#Все записи из таблицы
+def get_all(table):
+    query = f'''SELECT * FROM {table}'''
+    cursor.execute(query)
+    record = cursor.fetchall() #Получение результатов запроса
+    return record
 
 # cursor.execute('SELECT * FROM users;') #Сам запрос
 # result = cursor.fetchone() #Обработка запроса

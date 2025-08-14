@@ -15,3 +15,10 @@ def request_contact_keyboard():
     keyboard = ReplyKeyboardMarkup()
     keyboard.add(KeyboardButton('Данные',True))
     return keyboard
+
+def services_keyboard(buttons):
+    keyboard = InlineKeyboardMarkup()
+    for element in buttons:
+        keyboard.add(InlineKeyboardButton(element[1],callback_data=f'service:{element[0]}'))
+    keyboard.add(InlineKeyboardButton('Назад',callback_data=''))
+    return keyboard

@@ -28,13 +28,23 @@ def callback_handler(call:types.CallbackQuery):
     if call.message:
         if call.data == 'registration':
             user = userModel.create_user(call.from_user)
-            db.save_one('users','id,first_name,last_name',f'''{user.id},'{user.first_name}','{user.last_name}' ''') #Запись пользоватея в базу данных
+            db.save_one('users','id,username,first_name,last_name',f'''{user.id},'{user.username}','{user.first_name}','{user.last_name}' ''') #Запись пользоватея в базу данных
             bot.send_message(call.message.chat.id,'Регистрация успешна')    
             bot.edit_message_text(call.message.text,call.message.chat.id,call.message.id)
+            bot.send_message(call.message.chat.id,f'Вот мои комманды',reply_markup=keyboards.command_keyboard())
         elif call.data == 'delete_account':
             db.delete_one_by_id('users',call.from_user.id) #Удаление пользователя из базы данныз
             bot.send_message(call.message.chat.id,'Данные удалены')
             bot.edit_message_text(call.message.text,call.message.chat.id,call.message.id)
-
-
+        elif call.data == 'order':  
+            db_services = db.get_all('services')
+            bot.edit_message_text('Услуги',call.message.chat.id,call.message.id,reply_markup=keyboards.services_keyboard(db_services))
+        elif call.data.startswith('service:'):
+            id = call.data[8:]
+            service = db.get_one_by_id('services',int(id))
+            respond = ''
+            respond += f'Название:{service[1]}\n'
+            respond += f'Стоимость:{service[2]}\n'
+            respond += f'Описание:{service[3]}'
+            bot.edit_message_text(respond,call.message.chat.id,call.message.id,)
 bot.infinity_polling()
